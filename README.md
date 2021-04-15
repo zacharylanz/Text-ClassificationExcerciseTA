@@ -1,0 +1,43 @@
+# Text-ClassificationExcerciseTA
+TA - Text Classification Exercise 
+
+    1) RUN THE WHOLE PROGRAM: You will receive console output in the following order:
+            1. Baseline classification accuracy and 10 most informative features
+            2. First preprocessing - second classification accuracy and 10 most informative features
+            3. Second preprocessing - third classification accuracy and 10 most informative features
+    2) All done!
+	Please Note: 
+I am only outputting the top 10 most informative features for the sake of not outputting an insane amount of information. Changes between preprocessing 1 and 2 may not be directly visible as stop words were not the most common features. However, the stop word removal does work and can be seen when comparing new_documents and new_documents2.
+
+Justification of Coding Design and Choices
+For the purpose of this exercise, a coding scheme was developed which would utilize the movie review corpus as input data for three separate classification models. Each model was meant to generate an idea of how an analysis of the data would improve throughout preprocessing steps. To effectively organize the code (for both the sake of good organization and well-functioning coding scheme) the following structure was developed (with explanations):
+
+1.	Baseline of documents_raw with only the lowercasing of words as preprocessing applied to documents_raw.
+	Baseline classification accuracy.
+Explanation: To begin the project, a baseline of accuracy must be developed in order to understand the accuracy of the Naïve Bayes classifier against the documents_raw movie reviews corpus. The only preprocessing applied to the baseline is the lowercasing of all of the words within the corpus being accessed. Initially this was included as a foundation for the baseline pulled from the python lab done previously. However, this we kept in because of the function of the lowercasing of words as a preprocessing choice. According to Denny & Spirling (2018), the lowercasing of words is a step taken in most applications as the first letter of a word being capitalized does not often affect its meaning. It is important to note that there are instances in which words with the same spelling may have different meanings represented through capitalization, such as names. 
+The baseline developed for the first classification only used the single form of preprocessing and created a function to enable the use of feature sets. The feature sets function is utilized to create training and testing sets which are used to inform the accuracy of the most informative features picked up across the corpus. The training set is an example of the documents which observe the most informative features the classifier is looking to calculate against. The testing set is then used to determine the efficacy of the classifier as it tests against the most common features obtained in the documents (Sebastiani, 1999). Once these functions were established, the classifier was run to determine a baseline of accuracy.
+It is also important to emphasize the use of the random shuffling of documents. To effectively asses the accuracy of the most common features without skewing the results, random shuffling of the documents was necessary. In base form, the movie reviews corpus classifies the different reviews into two categories, positive and negative. The negative reviews are all presented first, making random sampling necessary in order to ensure the majority of reviews are not negative based on the training and testing sets created for each classification (Zoonen & Toni, 2016). 
+2.	Preprocessing 1: Application of the removal of special characters for preprocessing prior to the second classification.
+	Applying preprocessing of documents_raw and appending to new_documents
+	Second classification and accuracy.
+Explanation: The removal of special characters is utilized in the first form of preprocessing conducted against the documents_raw. As discussed in the article by Denny and Spirling (2018), punctuation is often the first decision made when determining preprocessing choices. When analyzing documents_raw, the most informative features being outputted were all numbers, individual letters, and special characters. As this is not the information I am looking to obtain from the documents, I felt it was befitting that this was the first thing to remove. Punctuation is often considered uninformative, and in this case, it did not inform the data I was looking to extract from the documents. To apply the classifier to the newly generated “new_documents”, I appended the preprocessed documents to the new_documents and created new testing and training sets for the classifier to use, building off of the preprocessed form of documents_raw. The tokenization of text also occurs within the first preprocessing in order to generate a vector of meaningful tokens and prepare for the removal of stop words in the next phase of preprocessing (Denny & Spirling, 2018).
+3.	Preprocessing 2: Removal of stop-words for preprocessing prior to the third and final classification. 
+	Third classification and accuracy.
+Explanation: The second preprocessing step being taken is the removal of stop words. Although stop words are not present within the outputted most informative features, and analysis of new_documents will show a high frequency of the occurrence of stop words. In order to improve the accuracy of the most informative features, the removal of frequently occuring stop words is necessary. The remove_stopwords function access an existing list of define stop words by nltk. These words are removed primarily because they do not provide significant or useful information pertaining to the movie reviews corpus. To apply the classifier to the newly generated “new_documents2”, which is set as the newly generate document after the second preprocessing, I appended the preprocessed documents to the new_documents2 and created new testing and training sets for the classifier to use, building off of the preprocessed form of new_documents. The purpose of this is to continue building off of the preprocessing that has already been done, thus working to improve the overall accuracy of the classifier. With both preprocessing steps applied, special characters and stop words are removed, enabling the classifier to only look at useful words as the most informative features. 
+
+
+
+Comparison of Results Across all Three Models
+-	Baseline and Classification 1 Results: 55.00000000000001
+-	Preprocessing 1 and Classification 2 Results: 87.0
+-	Preprocessing 2 and Classification 3 Results: 92.0
+As the preprocessing is applied to documents_raw, we see a gradual increase in accuracy through each classification model. Applying the removal of special characters shows a significant increase in accuracy compared to the baseline initially established. In addition, the most informative features demonstrate a promising change as the baseline’s most significant features were primarily special characters. Following the application of further preprocessing with the removal of stop words, an increase in accuracy is witnessed once again as stop words occur frequently throughout the documents. The combination of these two preprocessing steps generates highly accurate results in the Naïve Bayes classification. 
+The most important thing of note when comparing the results across all three models is the potential influence of the random shuffle of documents. When re-rerunning the programs, it is likely that changes in the accuracy of the classifications will be witnessed. This is due to the influence of the random shuffle. Every time the shuffle of documents occurs to ensure a random sample of testing, a slightly different testing and training set is generated across the models. This means different documents will be analyzed, some of which may have less stop words than others. The results of this may sometimes entail a decrease in accuracy when applying the removal of stop words or even no changes in the accuracy following the second phase of preprocessing. 
+
+
+
+
+References
+Denny, M. J., & Spirling, A. (2018). Text Preprocessing for Unsupervised Learning: Why It Matters, When It Misleads, And What to Do About It. Political Analysis, 26(2), 168–189. doi: 10.1017/pan.2017.44
+Sebastiani, F. (1999). A tutorial on automated text categorization. In Proceedings of ASAI-99, 1st Argentinian Symposium on Artificial Intelligence (pp. 7-35). Buenos Aires, AR.
+Zoonen, W. V., & Toni, G. V. D. M. (2016). Social media research: The application of supervised machine learning in organizational communication research. Computers in Human Behavior, 63, 132–141. doi: 10.1016/j.chb.2016.05.028
