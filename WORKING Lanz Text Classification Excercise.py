@@ -3,7 +3,6 @@
 
 @author:Zachary Lanz
 
-Instructions for Dr. Young:
     
     1) RUN THE WHOLE PROGRAM
         - You will receive ouput in the following order:
